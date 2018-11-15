@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  
+  <a class="navbar-brand" routerLink="/home">emu főz</a>
+  
+  <!-- data-toggle, data-target -t megadtuk, mert a bootstrap javascript nélkül a funkciókhoz kötött részeit ezekkel lehetett használni navbarCollapse id-ra vonatkoztunk,
+   de most mivel mi nem használjuk a jquerys bootstrap dolgokat, hanem helyette az ngx bootstrapet. -->
+  <button class="navbar-toggler" type="button"  aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" (click)="isCollapsed = !isCollapsed">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse" [collapse]="isCollapsed">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" routerLink="/home">Főoldal</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" routerLink="/categ">Receptek</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <ng-container *ngIf="!userService.isLoggedIn; else loggedInBlock">
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" routerLink="/user/login">Belépés</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" routerLink="/user/registration">Regisztráció</a>
+      </li>
+      </ng-container>
+      <ng-template #loggedInBlock>
+      <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" (click)="logout()">Logout</a>
+      </li>
+    </ng-template>
+    </ul>  
+  </div>
+</nav>

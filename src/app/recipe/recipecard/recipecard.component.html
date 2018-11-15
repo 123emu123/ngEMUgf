@@ -1,0 +1,13 @@
+<a class="nu" [routerLink]="['./', onerecipe.id, 'read']">
+  <div class="card">
+    <img class="card-img-top" [src]="onerecipe.pictureUrl" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{ onerecipe.name}}</h5>
+      <p class="card-text">
+        <small class="text-muted">Feltöltötte: {{ onerecipe.owner.name }}</small>
+      </p>
+    </div>
+  </div>  
+  </a>
+
+

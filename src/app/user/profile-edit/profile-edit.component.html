@@ -1,0 +1,106 @@
+<app-carousel> <carousel>
+    <slide>
+        <img class="first-slide carousel_img" src="assets/bg1.jpg" alt="First slide">
+       
+          <div class="carousel-caption text-left">
+            <h1>Regisztrálj</h1>
+            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            <p><a class="btn btn-lg btn-primary btn-color" href="#" role="button">Sign up today</a></p>
+          </div>
+      
+      </slide>
+      <slide>
+        <img class="second-slide carousel_img" src="assets/bg2.jpg" alt="Second slide">
+     
+          <div class="carousel-caption">
+            <h1>Another example headline.</h1>
+            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            <p><a class="btn btn-lg btn-primary btn-color" href="#" role="button">Learn more</a></p>
+          </div>
+      
+      </slide>
+      <slide>
+        <img class="third-slide carousel_img" src="assets/bg3.jpg" alt="Third slide">
+      
+          <div class="carousel-caption text-right">
+            <h1>One more for good measure.</h1>
+            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            <p><a class="btn btn-lg btn-primary btn-color" href="#" role="button">Browse gallery</a></p>
+          </div>
+      
+     </slide>
+</carousel></app-carousel>
+
+<div class="row justify-content-center">
+  <div class="col-10 col-sm-8 col-md-6 col-lg-4">
+    <div class="card belep-regi-keret">
+      <div class="card-header" *ngIf="user.id">Adatmódosítás</div>
+      <div class="card-header" *ngIf="!user.id">Regisztráció</div>
+      <div class="card-body">
+        <form #profileForm="ngForm" (ngSubmit)="onSubmit()">
+         
+          <div class="form-group">
+            <label for="regiName">Név</label>
+            <input type="text" class="form-control" id="regiName" [(ngModel)]="user.name" name="name" required #name="ngModel">
+            <alert type="danger" *ngIf="name.touched && name.invalid"> Kötelező mező!</alert>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">E-mail cím</label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" [(ngModel)]="user.email" name="email" required #email="ngModel">
+            <alert type="danger" *ngIf="email.touched && email.invalid"> Kötelező mező!</alert>
+          </div>
+
+          <div class="form-group">
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="fiu" name="sex" class="custom-control-input" value="male" [(ngModel)]="user.gender" name="gender">
+                <label class="custom-control-label" for="fiu">fiú</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="lany" name="sex" class="custom-control-input" value="female" [(ngModel)]="user.gender" name="gender">
+                <label class="custom-control-label" for="lany">lány</label>
+              </div>
+          </div>
+          
+          <div class="form-group">
+            <!--div class="custom-file">
+              <label class="custom-file-label" for="customFile">Válassz fájlt...</label>
+              <input type="text" class="custom-file-input" id="customFile" placeholder="profilképem" required 
+                [(ngModel)]="user.profilePictureURL" name="profilePictureURL" #profilePictureURL="ngModel">
+            </div-->
+            <div class="custom-file">
+              <label for="customFile">Profilkép url-je</label>
+              <input type="text" class="form-control" id="customFile" placeholder="profilképem" required 
+                [(ngModel)]="user.profilePictureURL" name="profilePictureURL" #profilePictureURL="ngModel">
+                <alert type="danger" *ngIf="profilePictureURL.touched && profilePictureURL.invalid"> Kötelező mező!</alert>
+            </div>
+          </div>
+
+          <ng-container *ngIf="!user.id">
+            <div class="form-group">
+              <label for="regiPassword1">Jelszó</label>
+              <input type="password" name="pass1" title="kis, nagybetű és szám, legalább nyolc karakter hosszan" 
+                      pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required class="form-control" 
+                      id="regiPassword1" placeholder="Jelszó" ngModel #pass1="ngModel">
+            </div>
+            <div class="form-group">
+              <label for="regiPassword2">Jelszó</label>
+              <input type="password" id="regiPassword2" class="form-control"
+                      title="kis, nagybetű és szám, legalább nyolc karakter hosszan" placeholder="Jelszó"
+                      pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required  
+                      ngModel name="pass2" #pass2="ngModel">
+            </div>
+            <alert type="danger" *ngIf="pass1.dirty && pass2.dirty &&(pass1.invalid || pass2.invalid || (pass1.value !== pass2.value))"> A jelszavak nem megfelelőek!</alert>
+
+            <button type="submit" class="btn kuld-gomb" [disabled]="profileForm.invalid || (pass1.value !== pass2.value)"> Regisztráció </button>
+
+            </ng-container>
+
+            <button *ngIf="user.id" type="submit" class="btn kuld-gomb" [disabled]="profileForm.invalid"> Mentés </button>
+
+          
+        </form>
+      </div>
+    </div>  
+  </div>
+</div>

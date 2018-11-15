@@ -1,0 +1,64 @@
+<div class="row justify-content-center">
+    <div class="col-10">
+      <div class="card belep-regi-keret">
+        <!-- ez csak a form fejléce -->
+        <div class="card-header" *ngIf="!recipe.id; else modify">Új recept</div>
+        <ng-template #modify>
+          <div class="card-header">Recept szerkesztése</div>
+        </ng-template>
+      
+        <div class="card-body">
+           <form #recipeForm="ngForm" (ngSubmit)="onSubmit()">  
+            <div class="form-group">
+              <label for="recname">Recept neve</label>
+              <input type="text" class="form-control" id="recname" 
+                    placeholder="recept neve" [(ngModel)]="recipe.name" required name="name" #name="ngModel">
+            </div>
+  
+          <div class="form-group">
+              <label class="my-1 mr-2" for="select">Recept kategória</label>
+              <ng-container *ngIf="!isCateg; else inCategblock">
+                <select class="custom-select my-1 mr-sm-2" id="select" [(ngModel)]="recipe.categId" name="categId" required #categId="ngModel">
+                  <option value="0" selected disabled hidden> válassz a kategóriákból </option>
+                  <option *ngFor="let c of categs" [value]="c.id"> {{ c.name }} </option>
+                </select>
+              </ng-container>
+              <ng-template #inCategblock>
+                <select class="custom-select my-1 mr-sm-2" id="select" [(ngModel)]="recipe.categId" name="categId" required #categId="ngModel">
+                  <option value="categ.id" selected disabled hidden> {{ categ.name }} </option>
+                  <option *ngFor="let c of categs" [value]="c.id"> {{ c.name }} </option>                  
+                </select>
+              </ng-template>
+            </div>
+
+            <div class="form-group">
+              <label for="hozzavalok">Hozzávalók</label>
+              <textarea class="form-control" id="hozzavalok" aria-describedby="hozzavalok" placeholder="hozzávalók"
+                rows="5" name="ingred" [(ngModel)]="recipe.ingred" required #ingred="ngModel"></textarea>
+            </div>
+  
+            <div class="form-group">
+              <label for="leiras">Leírás</label>
+              <textarea class="form-control" id="leiras" rows="8" [(ngModel)]="recipe.descript" name="descript" placeholder="leírás" required #descript="ngModel"></textarea>
+            </div>
+  
+            <div class="form-group">
+              <label for="recfile">Adj hozzá képet</label>
+                  <input name="picURL" type="text" class="form-control" id="recfile" 
+                        placeholder="recept képe" [(ngModel)]="recipe.pictureUrl" required #picURL="ngModel">
+                <!--div class="custom-file"></div>
+                <input type="file" class="custom-file-input" id="customFile" [(ngModel)]="recipe.pictureURL" name="picURL">
+                <label class="custom-file-label" for="customFile">Adj hozzá képet</label>
+              </div-->
+            </div>
+            <div class="text-center mb-3">
+              <button type="submit" class="btn kuld-gomb" [disabled]="recipeForm.invalid">Hozzáad</button>
+              <button type="button" class="btn kuld-gomb" (click)="gotoback()">Mégsem</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  

@@ -1,0 +1,9 @@
+<div class="container">
+    <div class="card-deck category-card-deck">
+        <span></span>
+        <app-recipecard class="col-md-6 col-lg-4"  
+            *ngFor="let r of recipesByCat" 
+            [onerecipe]="r">
+        </app-recipecard>       
+    </div>
+</div>
