@@ -12,11 +12,12 @@ import { CategService } from 'src/app/shared/categ.service';
   styleUrls: ['./recipe-detail.component.css']
 })
 export class RecipeDetailComponent implements OnInit {
+  
   recipe : RecipeModel;
   categs: CategModel[];
   isCateg: boolean;
-  categ: CategModel; //ez kell a html-ben a categ létezésekor hogy meg tudja adni a select boxban már beállítottként ---- nem müxik
-  recId: number; //a creat és az update ág miatt
+  categ: CategModel; 
+  recId: number; 
     
   constructor(private route: ActivatedRoute, 
               private recipeService: RecipeService, 
@@ -25,21 +26,25 @@ export class RecipeDetailComponent implements OnInit {
               private categService: CategService) {    }
 
   ngOnInit() {
-    this.recipe = new RecipeModel(RecipeModel.emptyRecipe); 
     const catId = +this.route.snapshot.parent.params['cid'];
     this.recId = +this.route.snapshot.params['rid'];
     this.categs = this.categService.getAllCategs();
+    if (this.recId) {
+      this.recipe = this.recipeService.getRecipeById(this.recId);
+    } else {
+      this.recipe = new RecipeModel(RecipeModel.emptyRecipe);
+    }
 
     if (catId) {
       this.isCateg = true;
-      this.categ = this.categService.getCategById(catId);
+      this.recipe.categId = catId;
     } else {
       this.isCateg = false;
+      this.recipe.categId=0;
     }   
   }
 
   onSubmit() {
-    console.log("ez a recipe ami megy = ",this.recipe);
     if (this.recId) {
       this.recipeService.update(this.recipe);
     } else {

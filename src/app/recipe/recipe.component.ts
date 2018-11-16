@@ -17,8 +17,9 @@ export class RecipeComponent implements OnInit {
    
    // if (!this.categ) {
       const catId = +this.route.snapshot.params['cid'];
+
       this.categ = this.categService.getCategById(catId);
-      console.log("mikor íródik ki ez a kateg === >>> ", this.categ);
+      console.log("mi a kategid === >>> ", catId);
   //  }
    
   }
