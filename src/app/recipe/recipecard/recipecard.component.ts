@@ -8,10 +8,9 @@ import { RecipeModel } from 'src/app/shared/recipe-model';
 })
 export class RecipecardComponent implements OnInit {
   @Input() onerecipe: RecipeModel;
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
-  console.log("ez az onerecipe : ", this.onerecipe);
   }
- 
+
 }

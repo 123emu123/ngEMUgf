@@ -1,72 +1,65 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserModel } from './user-model';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
-import { FirebaseLoginModel } from './firebase-login-model';
+import { Location } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   isLoggedIn = false;
-
   private user: UserModel;
   private allUsers: UserModel[];
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(private router: Router) { //, private location: Location) {
+    this.allUsers = [
+      new UserModel({
+        'id': 1, 
+        'name': 'en',
+        'email': 'en@en.hu',
+        'gender': 'female', 
+        'profilePictureURL': ''
+      }),
+      new UserModel({
+        'id': 2, 
+        'name': 'te',
+        'email': 'te@te.hu',
+        'gender': 'male', 
+        'profilePictureURL': ''
+      }),
+      new UserModel({
+        'id': 3, 
+        'name': 'o',
+        'email': 'o@o.hu',
+        'gender': 'female', 
+        'profilePictureURL': ''
+      })
+    ];
+   }
 
-  login(email: string, password: string): Observable<UserModel> {
-    return this.http.post<FirebaseLoginModel>(
-      `${environment.firebase.loginUrl}?key=${environment.firebase.apikey}`,
-        {
-        'email': email,
-        'password': password,
-        'returnSecureToken': true
-        }
-      ).pipe(switchMap(fbLogin => this.http.get<UserModel>(`${environment.firebase.baseUrl}/users/${fbLogin.localId}.json`)),
-        tap(us => this.isLoggedIn = true),
-        tap(us => this.user = us)
-    );
+  login(email: string, password: string): boolean {
+    if (email ==='angular' && password === 'angular') {
+      this.user = this.allUsers[2];
+      this.isLoggedIn = true;
+      return true;
+    }
+    return false;
   }
 
-  register(name: string, email: string, password: string, gender: string, picture: string): Observable<UserModel> {
-    return this.http.post<FirebaseLoginModel>(
-      `${environment.firebase.registrationUrl}?key=${environment.firebase.apikey}`,
-        {
-          'email': email,
-          'password': password,
-          'returnSecureToken': true
-        }).pipe(switchMap(fbLogin => this.http.put<UserModel>(`${environment.firebase.baseUrl}/users/${fbLogin.localId}.json`,
-                {
-                  'id': fbLogin.localId,
-                  'name': name,
-                  'email': email,
-                  'gender': gender,
-                  'profilepictureURL': picture
-                })
-              ),    
-            switchMap(us => this.http.get<UserModel>(`${environment.firebase.baseUrl}/users/${us.id}.json`)),
-              tap(us => this.isLoggedIn = true),
-              tap(us => this.user = us)
-            );
-  }
+  register(param?: UserModel) {
+    if (param) {
+      this.user = new UserModel({
+        id: 4, 
+        ...param
+      });
 
-  updateUser(id: string, name: string, email: string, password: string, gender: string, picture: string): Observable<UserModel> {
-    return this.http.put<UserModel>(
-      `${environment.firebase.baseUrl}/users/${id}.json`,
-        {
-          'id': id,
-          'name': name,
-          'email': email,
-          'gender': gender,
-          'profilepictureURL': picture
-        }).pipe(switchMap(us => this.http.get<UserModel>(`${environment.firebase.baseUrl}/users/${us.id}.json`)),
-          tap(us => this.isLoggedIn = true),
-          tap(us => this.user = us)
-          );
+      this.allUsers = [
+        ...this.allUsers,
+        this.user
+      ];
+    } 
+    this.isLoggedIn = true;
+    this.router.navigate(['/user']);
   }
 
   logout() {
@@ -76,8 +69,13 @@ export class UserService {
     this.router.navigate(['/home']);
   }
 
-  getUserById(id: string) {
-    return this.http.get<UserModel>(`${environment.firebase.baseUrl}/users/${id}.json`);
+updateUser(p: UserModel) {
+  this.user=new UserModel(p);
+}
+
+  getUserById(id: number) {
+    const user = this.allUsers.filter(u => u.id === +id);
+    return user.length > 0 ? user[0] : new UserModel(UserModel.emptyUser);
   }
 
   getCurrentUser() {

@@ -10,12 +10,17 @@ import { CategService } from '../shared/categ.service';
   styleUrls: ['./recipe.component.css']
 })
 export class RecipeComponent implements OnInit {
-  constructor(private userService: UserService, 
-              private route: ActivatedRoute, private categService: CategService) { }
-  public categ: CategModel;
+  constructor(private userService: UserService, private route: ActivatedRoute, private categService: CategService) { }
+  categ: CategModel;
 
   ngOnInit() {
-    const catId = this.route.snapshot.params['cid'];
-    this.categService.getCategById(catId).subscribe(data => {this.categ = data});  
+   
+   // if (!this.categ) {
+      const catId = +this.route.snapshot.params['cid'];
+
+      this.categ = this.categService.getCategById(catId);
+      console.log("mi a kategid === >>> ", catId);
+  //  }
+   
   }
 }

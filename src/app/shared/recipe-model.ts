@@ -1,11 +1,11 @@
 export class RecipeModel {
-    id?: string;
+    id?: number;
     name: string;
     ingred: string;
     descript: string;
     pictureUrl: string;
-    userId: string;
-    categId: string;
+    userId: number;
+    categId: number;
 
     constructor(param?: RecipeModel) {
         if (param) {}
@@ -13,13 +13,13 @@ export class RecipeModel {
     }
 
     static get emptyRecipe(): RecipeModel {
-     return {
-        name: '',
-      ingred: '',
-    descript: '',
-         pictureUrl: '',
-        userId: '1',
-      categId: '0'
-      };
+        return {
+            name: '',
+            ingred: '',
+            descript: '',
+            pictureUrl: '',
+            userId: 1,
+            categId: 0
+        };
     }
 }

@@ -75,23 +75,6 @@ body {
   background-color: #b99f7a;
   border-color: #c0a47d;
 }
-
-.kuld-gomb-balra {
-  margin-bottom: 20px;
-  color: #fff;
-  background-color: #b99f7a;
-  border-color: #c0a47d;
-  float: left;
-}
-
-.kuld-gomb-jobbra {
-  margin-bottom: 20px;
-  color: #fff;
-  background-color: #b99f7a;
-  border-color: #c0a47d;
-  float: right;
-}
-
 .kuld-gomb:hover {
   background-color: #a3865b;
   border-color: #e7bf82;

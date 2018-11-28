@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CategService } from '../shared/categ.service';
 import { CategModel } from '../shared/categ-model';
 import { RecipeModel } from '../shared/recipe-model';
-import { Observable } from 'rxjs';
+import { RecipeService } from '../shared/recipe.service';
 import { UserService } from '../shared/user.service';
 
 @Component({
@@ -13,19 +13,13 @@ import { UserService } from '../shared/user.service';
 export class CategComponent implements OnInit {
   public categs: CategModel[];
   public recipes: RecipeModel[];
-  public categs$: Observable<CategModel[]>;
-  
-  constructor(private categService: CategService, private userService: UserService) {  }
+
+  constructor(private categService: CategService, private recipeService: RecipeService, private userService: UserService) { 
+    this.categs = this.categService.getAllCategs();
+   // this.recipes = this.recipeService.getAllRecipes();
+  }
 
   ngOnInit() {
-    this.categs$ = this.categService.getAllCategs();
-    //  this.categs$ = this.categService.getAllCategs(); ASYNC megoldás
-   
-    //  this.categService.getAllCategs().subscribe( data => { // ez a SUBSCRIBE-os megoldás
-    //    this.categs = data
-    //  });
-
-
   }
 
 }

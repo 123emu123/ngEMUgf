@@ -13,7 +13,6 @@ import { UserService } from './shared/user.service';
 import { RecipeService } from './shared/recipe.service';
 import { LoggedInGuard } from './shared/logged-in.guard';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -31,8 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
     CarouselModule.forRoot(),
     CollapseModule.forRoot(),
     AlertModule.forRoot(),
-    AppRoutingModule,
-    HttpClientModule
+    AppRoutingModule
   ],
   providers: [CategService, UserService, RecipeService, LoggedInGuard],
   bootstrap: [AppComponent]

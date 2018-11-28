@@ -32,32 +32,12 @@
          </slide>
         </carousel>
 </app-carousel>
-
-<!-- async maradok, de van különbség aközött, hogy a streamben utazó adaton dolgozok és streamben vagyok, vagy pedig a már megérkezett adattal dolgozok, 
-      és úgy tudok streamben maradni, hogy létrehozom a categmodeleket tartalmazó tömböknek a tömbjeit tartalmazó változót ...$: Observable<CategModel[][]>
-        
-    a subscribeokat el kell pusztítani amikor a komponensünk elpusztul, viszont ezt nehéz lifecycle hookok részletes alkalmazása nélkül megtenni-->
-
-<div class="container"> <!-- SUBSCRIBE nélkül -->
-  <button type="submit" class="btn kuld-gomb" [routerLink]="['../','recipe' ,'new']" *ngIf="userService.isLoggedIn">Új recept</button>
-  <div class="card-deck category-card-deck">
-    <app-categcard class="col-md-6 col-lg-4" 
-      *ngFor="let c of categs$ | async" 
-      [onecateg]="c">
-    </app-categcard>
-  </div> 
-</div>
-
- <!-- <div class="container">     SUBSCRIBE-val
+<div class="container">
   <button type="submit" class="btn kuld-gomb" [routerLink]="['../','recipe' ,'new']" *ngIf="userService.isLoggedIn">Új recept</button>
   <div class="card-deck category-card-deck">
     <app-categcard class="col-md-6 col-lg-4" 
       *ngFor="let c of categs" 
       [onecateg]="c">
     </app-categcard>
-  </div> 
-</div> -->
-
-<!-- <pre>
-  {{ categs$ | async | json }}
-</pre> -->
+  </div>
+</div>
