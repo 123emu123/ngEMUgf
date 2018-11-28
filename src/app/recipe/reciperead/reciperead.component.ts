@@ -11,12 +11,14 @@ import { UserService } from 'src/app/shared/user.service';
   styleUrls: ['./reciperead.component.css']
 })
 export class RecipereadComponent implements OnInit {
-  recipe : RecipeModel;
+ recipe: RecipeModel;
 
   constructor(private route: ActivatedRoute, private recipeService: RecipeService, private userService: UserService) { }
 
   ngOnInit() {
-    const recId = +this.route.snapshot.params['rid'];
-    this.recipe = this.recipeService.getRecipeById(recId);
+    const recId = this.route.snapshot.params['rid'];
+    console.log("vajon van receptId = ",recId);
+    this.recipeService.getRecipeById(recId)
+      .subscribe( recm => this.recipe = recm);;
   }
 }

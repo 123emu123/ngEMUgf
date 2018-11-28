@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../shared/user.service';
-import { Location } from '@angular/common';
+import { Router } from '@angular/router';
+import { UserModel } from 'src/app/shared/user-model';
 
 @Component({
   selector: 'app-login',
@@ -10,18 +11,17 @@ import { Location } from '@angular/common';
 export class LoginComponent implements OnInit {
   public error: string;
 
-  constructor(private userService: UserService, private location: Location) { 
-    
-  }
+  constructor(private userService: UserService, private router: Router) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {  }
 
   login(email: string, password: string) {
-    if (!this.userService.login(email, password)) {
-      this.error = 'Hiba a belépési adatokban!';
-    }
-    this.location.back();
+    this.userService.login(email, password).subscribe(
+      (user: UserModel) => {
+        this.router.navigate(['/user']);
+      },
+      err => console.warn('hiba', err)
+    );  
   }
 
   clearError() {

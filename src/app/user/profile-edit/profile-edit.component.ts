@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/shared/user.service';
 import { UserModel } from 'src/app/shared/user-model';
 import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-profile-edit',
@@ -13,15 +14,26 @@ export class ProfileEditComponent implements OnInit {
 
   constructor(private userService: UserService, private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit() {        
    this.user = this.userService.isLoggedIn ? this.userService.getCurrentUser() : new UserModel();
   }
 
-  onSubmit() {
+  onSubmit(f:NgForm) {
     if (this.user.id) {
-      this.userService.updateUser(this.user);
+      this.userService.updateUser(this.user.id, f.value.name, f.value.email, f.value.pass1, f.value.gender, f.value.profilepictureURL).subscribe(
+        (user: UserModel) => {
+          this.router.navigate(['/user']);
+        },
+        err => console.warn('hiba', err)
+      );
     } else {
-      this.userService.register(this.user);
+      this.userService.register(f.value.name, f.value.email, f.value.pass1, f.value.gender, f.value.profilepictureURL)
+      .subscribe(
+        (user: UserModel) => {
+          this.router.navigate(['/user']);
+        },
+        err => console.warn('hiba', err)
+      );  
     }  
     this.router.navigate(['/user']);
   }

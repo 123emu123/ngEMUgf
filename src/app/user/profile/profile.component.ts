@@ -15,6 +15,9 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.user.name);
+    console.log(this.user.profilepictureURL);
+
   }
 
 }
