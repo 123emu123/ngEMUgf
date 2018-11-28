@@ -1,5 +1,5 @@
 export class CategModel {
-    id: number;
+    id: string;
     name: string;
     pictureUrl: string;
 
@@ -11,7 +11,7 @@ export class CategModel {
 
     static get emptyCateg(): CategModel {
         return {
-            id: 0,
+            id: '0',
             name: '',
             pictureUrl: ''
         };

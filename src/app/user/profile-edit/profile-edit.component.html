@@ -36,52 +36,50 @@
     <div class="card belep-regi-keret">
       <div class="card-header" *ngIf="user.id">Adatmódosítás</div>
       <div class="card-header" *ngIf="!user.id">Regisztráció</div>
+     <!-- Adtamódosítás -->
       <div class="card-body">
-        <form #profileForm="ngForm" (ngSubmit)="onSubmit()">
-         
+        <form #profileForm="ngForm" (ngSubmit)="onSubmit(profileForm)">
           <div class="form-group">
             <label for="regiName">Név</label>
             <input type="text" class="form-control" id="regiName" [(ngModel)]="user.name" name="name" required #name="ngModel">
             <alert type="danger" *ngIf="name.touched && name.invalid"> Kötelező mező!</alert>
           </div>
-          
           <div class="form-group">
             <label for="email">E-mail cím</label>
             <input type="email" class="form-control" id="email" aria-describedby="emailHelp" [(ngModel)]="user.email" name="email" required #email="ngModel">
             <alert type="danger" *ngIf="email.touched && email.invalid"> Kötelező mező!</alert>
           </div>
-
           <div class="form-group">
             <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="fiu" name="sex" class="custom-control-input" value="male" [(ngModel)]="user.gender" name="gender">
+                <input type="radio" id="fiu" name="sex" class="custom-control-input" value="male" [(ngModel)]="user.gender" name="gender" #gender="ngModel">
                 <label class="custom-control-label" for="fiu">fiú</label>
               </div>
               <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="lany" name="sex" class="custom-control-input" value="female" [(ngModel)]="user.gender" name="gender">
+                <input type="radio" id="lany" name="sex" class="custom-control-input" value="female" [(ngModel)]="user.gender" name="gender" #gender="ngModel">
                 <label class="custom-control-label" for="lany">lány</label>
               </div>
           </div>
-          
           <div class="form-group">
             <!--div class="custom-file">
               <label class="custom-file-label" for="customFile">Válassz fájlt...</label>
               <input type="text" class="custom-file-input" id="customFile" placeholder="profilképem" required 
-                [(ngModel)]="user.profilePictureURL" name="profilePictureURL" #profilePictureURL="ngModel">
+                [(ngModel)]="user.profilepictureURL" name="profilepictureURL" #profilepictureURL="ngModel">
             </div-->
             <div class="custom-file">
               <label for="customFile">Profilkép url-je</label>
               <input type="text" class="form-control" id="customFile" placeholder="profilképem" required 
-                [(ngModel)]="user.profilePictureURL" name="profilePictureURL" #profilePictureURL="ngModel">
-                <alert type="danger" *ngIf="profilePictureURL.touched && profilePictureURL.invalid"> Kötelező mező!</alert>
+                [(ngModel)]="user.profilepictureURL" name="profilepictureURL" #profilepictureURL="ngModel">
+                <alert type="danger" *ngIf="profilepictureURL.touched && profilepictureURL.invalid"> Kötelező mező!</alert>
             </div>
           </div>
 
+     <!-- Regisztráció -->
           <ng-container *ngIf="!user.id">
             <div class="form-group">
               <label for="regiPassword1">Jelszó</label>
               <input type="password" name="pass1" title="kis, nagybetű és szám, legalább nyolc karakter hosszan" 
                       pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required class="form-control" 
-                      id="regiPassword1" placeholder="Jelszó" ngModel #pass1="ngModel">
+                      id="regiPassword1" placeholder="Jelszó" ngModel #pass1="ngModel" #pass1="ngModel">
             </div>
             <div class="form-group">
               <label for="regiPassword2">Jelszó</label>

@@ -1,30 +1,29 @@
 <hr class="divider">
 <dl class="row">
-    <dt class="col-sm-3"> <img class="featurette-image img-fluid mx-auto" src="assets\111.jpg" alt="Generic placeholder image"></dt>
+    <dt class="col-sm-3" *ngIf="recipe"> <img class="featurette-image img-fluid mx-auto" [src]="recipe.pictureUrl" alt="Generic placeholder image"></dt>
     <dd class="col-sm-9">
         <dl class="row">
           <dt class="col-sm-8"><h1> {{ recipe.name }} </h1></dt>
-          <dd class="col-sm-4"><button class="btn btn-link" [routerLink]="['../', 'edit']" *ngIf="userService.isLoggedIn">Szerkeszt</button></dd>
+          <dd class="col-sm-4"><button class="btn btn-link" [routerLink]="['../', 'edit']" *ngIf="userService.isLoggedIn && (recipe.userId==userService.getCurrentUser().id)">Szerkeszt</button></dd>
         
         </dl>
       </dd>
 
-
     <dt class="col-sm-3">Hozzávalók</dt>
     <dd class="col-sm-9">
-      <p> {{ recipe.ingred }} </p>
+      <p *ngIf="recipe"> {{ recipe.ingred }} </p>
     </dd>
   
     <dt class="col-sm-3">Leírás</dt>
-    <dd class="col-sm-9"> {{ recipe.descript }}</dd>
+    <dd class="col-sm-9" *ngIf="recipe"> {{ recipe.descript }}</dd>
   
-    <dt class="col-sm-3 text-truncate">Truncated term is truncated</dt>
+    <dt class="col-sm-3 text-truncate">Ide is tehetek majd vmit</dt>
     <dd class="col-sm-9">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</dd>
   
-    <dt class="col-sm-3">Nesting</dt>
+    <dt class="col-sm-3">Ide is tehetek majd vmit_1</dt>
     <dd class="col-sm-9">
       <dl class="row">
-        <dt class="col-sm-4">Nested definition list</dt>
+        <dt class="col-sm-4">Ide is tehetek majd vmit_2</dt>
         <dd class="col-sm-8">Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc.</dd>
       </dl>
     </dd>

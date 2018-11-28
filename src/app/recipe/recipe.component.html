@@ -33,7 +33,9 @@
   </carousel>
 </app-carousel>
 <div class="container">
-  <div class="categ-name"> {{ categ.name }} </div>
-    <button type="submit" class="btn kuld-gomb" [routerLink]="['./', 'new']" *ngIf="userService.isLoggedIn">Új recept</button>
+  <table width=100%><tr><td colspan=2><div class="categ-name" *ngIf="categ"> {{ categ.name }} </div></td></tr>
+   <tr><td><button type="submit" class="btn kuld-gomb-balra" [routerLink]="['./', 'new']" *ngIf="userService.isLoggedIn">Új recept</button> </td>
+        <td> <button type="submit" class="btn kuld-gomb-jobbra" [routerLink]="['/categ']">Vissza a receptkategóriákhoz</button> </td></tr>
+  </table>
     <router-outlet></router-outlet>
 </div>

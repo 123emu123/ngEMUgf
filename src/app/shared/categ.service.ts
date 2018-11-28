@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
 import { CategModel } from './categ-model';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
@@ -7,42 +12,21 @@ import { CategModel } from './categ-model';
 export class CategService {
   private categs: CategModel[];
 
-  constructor() { 
-    this.categs = [
-      {
-        'id': 1,
-        'name': 'Levesek',
-        'pictureUrl': 'assets/33.jpg'
-      },
-      {
-        'id': 2,
-        'name': 'Szárnyasok',
-        'pictureUrl': 'assets/55.jpg'
-      },
-      {
-        'id': 3,
-        'name': 'Főzelékek',
-        'pictureUrl': 'assets/22.jpg'
-      },
-      {
-        'id': 4,
-        'name': 'Desszertek',
-        'pictureUrl': 'assets/11.jpg'
-      },
-      {
-        'id': 5,
-        'name': 'Sütemények',
-        'pictureUrl': 'assets/44.jpg'
-      }
-    ]
+  constructor(private http: HttpClient) 
+   { }
+
+  getAllCategs(): Observable<CategModel[]> {
+     return this.http.get<CategModel[]>(`${environment.firebase.baseUrl}/categs.json`)
+        .pipe(map(data => Object.values(data)));
+    // return this.http.get<CategModel[]>(`${environment.firebase.baseUrl}/categs.json`)
+    //     .map(data => Object.values(data));
   }
 
-  getAllCategs(): CategModel[] {
-    return this.categs;
-  }
+  getCategById(id: string): Observable<CategModel> {
+    return this.http.get<CategModel>(`${environment.firebase.baseUrl}/categs/${id}.json`);
 
-  getCategById(id: number) {
-    const cat = this.categs.filter(x => x.id === +id);
-    return cat.length > 0 ? cat[0] : new CategModel(CategModel.emptyCateg);
+
+    //const cat = this.categs.filter(x => x.id === +id);
+   // return cat.length > 0 ? cat[0] : new CategModel(CategModel.emptyCateg);
   }
 }
