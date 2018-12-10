@@ -14,6 +14,8 @@ import { RecipeService } from './shared/recipe.service';
 import { LoggedInGuard } from './shared/logged-in.guard';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { SearchComponent } from './search/search.component';
+import { SearchSubcategComponent } from './categ/search-subcateg/search-subcateg.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
     FooterComponent,
     CategcardComponent, 
     ...AppRoutingModule.routableComponents, 
-    RecipecardComponent
+    RecipecardComponent, SearchComponent, SearchSubcategComponent
   ],
   imports: [
     BrowserModule,

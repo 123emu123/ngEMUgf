@@ -9,6 +9,7 @@ import { map, switchMap, flatMap } from 'rxjs/operators';
 import { of, zip } from 'rxjs';
 import { CategModel } from './categ-model';
 import { UserModel } from './user-model';
+import { SubcategModel } from './subcateg-model';
 
 @Injectable({
   providedIn: 'root'
@@ -63,8 +64,31 @@ export class RecipeService {
                 )
             ),
             switchMap(zipStreamArray => forkJoin(zipStreamArray))
-         );    
-  
+      );    
+  }
+
+  getRecipesBySubcategId(id: string): Observable<RecipeModel[]>  {
+    return this.http.get<RecipeModel[]>(`${environment.firebase.baseUrl}/recipes.json`)
+        .pipe(map(recipesObject => Object.values(recipesObject)), 
+              map(recipem => recipem.filter(r => { return r.subcategId === id; })),  //eddig a kiválasztott categű receptek tömbje
+              map(rma => rma.map(rm => zip(
+                       of(rm),
+                       this.categService.getSubcategById(rm.subcategId),
+                       this.userService.getUserById(rm.userId),
+                       (r: RecipeModel, sc: SubcategModel, u: UserModel) => {
+                         return {
+                           ...r,
+                           categ: sc,
+                           user: u
+                         };
+                       }
+                      )
+                  )
+              ),
+              switchMap(zipStreamArray => forkJoin(zipStreamArray))
+           );
+  }
+
     // return this.http.get<RecipeModel[]>(`${environment.firebase.baseUrl}/recipes.json`)
     //  .pipe(map(recipesObject => Object.values(recipesObject)), 
     //         map(recipesArray => recipesArray.map(rm =>  
@@ -102,7 +126,7 @@ export class RecipeService {
     //           ),
     //          switchMap(zipStreamArray => forkJoin(zipStreamArray))
     //      );    
-  }
+  
   
   update(recId, name, categId, ingred, descript, picURL) {
     console.log("recid ", recId);
@@ -156,5 +180,4 @@ export class RecipeService {
           );
   }
 
- }
-
+}

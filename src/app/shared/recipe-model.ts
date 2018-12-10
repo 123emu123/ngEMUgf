@@ -6,6 +6,7 @@ export class RecipeModel {
     pictureUrl: string;
     userId: string;
     categId: string;
+    subcategId: string;
 
     constructor(param?: RecipeModel) {
         if (param) {}
@@ -19,7 +20,9 @@ export class RecipeModel {
     descript: '',
          pictureUrl: '',
         userId: '1',
-      categId: '0'
+      categId: '0',
+      subcategId: '0'
+
       };
     }
 }

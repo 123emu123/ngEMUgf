@@ -1,0 +1,65 @@
+<app-carousel>
+  <carousel>
+      <slide>
+          <img class="first-slide carousel_img" src="assets/bg1.jpg" alt="First slide">
+         
+            <div class="carousel-caption text-left">
+              <h1>Saját kategóriákba mentheted receptjeinket</h1>
+              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <p><a class="btn btn-lg btn-primary btn-color" href="#" role="button">Sign up today</a></p>
+            </div>
+        
+        </slide>
+        <slide>
+          <img class="second-slide carousel_img" src="assets/bg2.jpg" alt="Second slide">
+       
+            <div class="carousel-caption">
+              <h1>Another example headline.</h1>
+              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <p><a class="btn btn-lg btn-primary btn-color" href="#" role="button">Learn more</a></p>
+            </div>
+        
+        </slide>
+        <slide>
+          <img class="third-slide carousel_img" src="assets/bg3.jpg" alt="Third slide">
+        
+            <div class="carousel-caption text-right">
+              <h1>One more for good measure.</h1>
+              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <p><a class="btn btn-lg btn-primary btn-color" href="#" role="button">Browse gallery</a></p>
+            </div>
+        
+       </slide>
+      </carousel>
+</app-carousel>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm col-md-3">
+      <div class="card arany-keret" style="height:20em">
+        <div class="form-check mt-3" *ngFor="let cat of categs">
+          <input type="checkbox" [id]="cat.name" class="form-check-input ml-1 mt-2" (change)="selectCat($event, cat.id)">
+          <label class="form-check-label-search ml-4" [for]="cat.name">{{ cat.name }}</label> 
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm col-md-4">
+      <div class="card arany-keret" style="height:50em">
+        <div *ngFor="let sc of subcategsAll">
+          <input type="checkbox" (change)="selectSubCat($event, sc.id)" class="ml-3" [id]="sc.id">
+          <label class="form-check-label-search" [for]="sc.id">{{ sc.name }}</label>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-sm col-md-5">
+      <div class="card arany-keret" style="height:20em">
+        <div *ngFor="let rs of recipesSelected">
+          <a class="form-check-label-search">{{ rs.name }}</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

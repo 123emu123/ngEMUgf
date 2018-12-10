@@ -15,6 +15,11 @@ body {
     margin-bottom: 1rem;
   }
   
+  .form-check-label-search {
+    color: #b99f7a;
+    margin-left: 1rem;
+  }
+
   /* CUSTOMIZE THE CAROUSEL
   -------------------------------------------------- */
   
@@ -191,7 +196,7 @@ body {
 }
 
 /*belépő oldal*/
-.belep-regi-keret{
+.arany-keret{
   color: #5a5a5a;
   border-color: #e4d3bb;
 }
